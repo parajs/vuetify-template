@@ -1,10 +1,73 @@
+import { setCookie, getCookie, removeCookie } from "utils/cookie";
+import { resetRouter } from "@/router";
+import { batchUpdateState } from "utils";
+import { login, getuser, logout } from "api/user";
+const tokenKey = process.env.VUE_APP_TOKEN;
+
+const updateUserInfo = (commit, data) => {
+  const { token } = data;
+  if (token) {
+    setCookie(tokenKey, token);
+  }
+  commit("batchUpdateState", data);
+};
+
 const state = {
+  token: getCookie(tokenKey) || "",
   user: ""
 };
 
-const mutations = {};
+const mutations = {
+  batchUpdateState: (state, payload) => {
+    batchUpdateState(state, payload);
+  }
+};
 
-const actions = {};
+const actions = {
+  async login({ commit }, userInfo) {
+    const result = await login(userInfo);
+    const { token, user } = result.data;
+    updateUserInfo(commit, { token, user });
+    return result;
+  },
+  // 获取用户资料
+  getuser({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      getuser(payload)
+        .then(result => {
+          updateUserInfo(commit, { user: result.data });
+          resolve(result);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
+  // user logout
+  logout({ dispatch }) {
+    return new Promise((resolve, reject) => {
+      logout()
+        .then(result => {
+          dispatch("resetUserInfo").then(() => {
+            location.href = "/";
+          });
+          resetRouter();
+          resolve(result);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
+  // remove token
+  resetUserInfo({ commit }) {
+    return new Promise(resolve => {
+      commit("batchUpdateState", { token: "", user: "" });
+      removeCookie(tokenKey); // token
+      resolve();
+    });
+  }
+};
 
 export default {
   namespaced: true,

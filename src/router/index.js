@@ -21,6 +21,9 @@ const routes = [
   {
     path: "/login",
     name: "Login",
+    meta: {
+      title: "登录页"
+    },
     component: () =>
       import(/* webpackChunkName: "login" */ "views/login/index.vue")
   },
@@ -35,10 +38,18 @@ const routes = [
   }
 ];
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes
-});
+const createRouter = () =>
+  new VueRouter({
+    mode: "history",
+    base: process.env.BASE_URL,
+    routes
+  });
+
+const router = createRouter();
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+  const newRouter = createRouter();
+  router.matcher = newRouter.matcher; // the relevant part
+}
 
 export default router;

@@ -4,6 +4,25 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
+import VuetifyToast from "vuetify-toast-snackbar";
+import "./permission"; // permission control
+import * as filters from "./filters"; // global filters
+import "@/styles/scrollbar.scss";
+
+Vue.use(VuetifyToast, {
+  x: "center",
+  y: "top",
+  icon: "mdi-alert-circle",
+  dismissable: false,
+  showClose: true,
+  closeIcon: "mdi-close",
+  closeColor: "#fff"
+});
+
+// register global utility filters
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key]);
+});
 
 Vue.config.productionTip = false;
 

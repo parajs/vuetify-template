@@ -22,18 +22,36 @@
       </div>
 
       <v-spacer></v-spacer>
-      <v-btn text @click="goToLogin">
-        <span>登录</span>
-      </v-btn>
+      <div>
+        <v-btn text @click="goToLogin" v-if="!token">
+          <span class="mr2">登录</span>
+          <v-icon>mdi-login</v-icon>
+        </v-btn>
+        <div class="d-flex" v-else>
+          <v-btn text @click="logout">
+            <span class="mr2">退出</span>
+            <v-icon>mdi-logout</v-icon>
+          </v-btn>
+        </div>
+      </div>
     </v-container>
   </v-app-bar>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "PageHeader",
+  computed: {
+    ...mapGetters(["user", "new_count", "token"])
+  },
   methods: {
     goToLogin() {
-      this.$router.push("/login");
+      this.$router.push("/login").catch(err => {
+        console.log(err);
+      });
+    },
+    logout() {
+      this.$store.dispatch("user/logout");
     }
   }
 };

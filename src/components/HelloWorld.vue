@@ -11,7 +11,7 @@
       </v-col>
 
       <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">
+        <h1 class="display-2 font-weight-bold mb-3" @click="copy">
           Welcome to Vuetify
         </h1>
 
@@ -128,6 +128,7 @@
 </template>
 
 <script>
+import handleClipboard from "utils/clipboard";
 export default {
   name: "HelloWorld",
 
@@ -182,6 +183,11 @@ export default {
         href: "https://vuetifyjs.com/getting-started/frequently-asked-questions"
       }
     ]
-  })
+  }),
+  methods: {
+    copy(e) {
+      handleClipboard(e.target.innerHTML, e);
+    }
+  }
 };
 </script>

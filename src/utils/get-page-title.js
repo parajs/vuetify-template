@@ -1,6 +1,4 @@
-import defaultSettings from "@/settings";
-
-const title = defaultSettings.title || "Vue Element Admin";
+const title = process.env.VUE_APP_TITLE || "vuetify-template";
 
 export default function getPageTitle(pageTitle) {
   if (pageTitle) {

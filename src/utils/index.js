@@ -1,7 +1,4 @@
-/**
- * Created by PanJiaChen on 16/11/18.
- */
-
+import md5 from "md5";
 /**
  * Parse the time to string
  * @param {(Object|string|number)} time
@@ -348,5 +345,43 @@ export function removeClass(ele, cls) {
   if (hasClass(ele, cls)) {
     const reg = new RegExp("(\\s|^)" + cls + "(\\s|$)");
     ele.className = ele.className.replace(reg, " ");
+  }
+}
+
+/**
+ * @description: md5加密
+ * @param {string | Buffer} url
+ * @returns {String}
+ */
+export function md5Encryption(message) {
+  const KEY = md5("LULU Derivation");
+  return md5(KEY + md5(message));
+}
+
+/**
+ * @description: 类型检查
+ * @param {type}
+ * @return: {String}
+ */
+
+export function typeCheck(param) {
+  return Object.prototype.toString.call(param);
+}
+
+/**
+ * @description: 批量修改stage
+ * @param {Object}
+ * @return:
+ */
+export function batchUpdateState(state, payload) {
+  if (
+    typeCheck(state) === "[object Object]" &&
+    typeCheck(payload) === "[object Object]"
+  ) {
+    for (const key in payload) {
+      state[key] = payload[key];
+    }
+  } else {
+    console.error("expected plain Object");
   }
 }
