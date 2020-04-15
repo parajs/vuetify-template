@@ -18,6 +18,18 @@ yarn serve
 yarn build
 ```
 
+### Compiles and minifies for staging
+
+```
+yarn staging
+```
+
+### Dependency Analysis Report
+
+```
+yarn report
+```
+
 ### Run your unit tests
 
 ```
