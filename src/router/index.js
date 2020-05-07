@@ -1,7 +1,7 @@
+import Layout from "layout";
+import Home from "views/Home.vue";
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "views/Home.vue";
-import Layout from "layout";
 
 Vue.use(VueRouter);
 
@@ -42,6 +42,7 @@ const createRouter = () =>
   new VueRouter({
     mode: "history",
     base: process.env.BASE_URL,
+    scrollBehavior: () => ({ y: 0 }),
     routes
   });
 
