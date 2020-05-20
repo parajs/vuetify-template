@@ -1,7 +1,7 @@
-import { setCookie, getCookie, removeCookie } from "utils/cookie";
-import { resetRouter } from "@/router";
+import router from "@/router";
+import { getuser, login, logout } from "api/user";
 import { batchUpdateState } from "utils";
-import { login, getuser, logout } from "api/user";
+import { getCookie, removeCookie, setCookie } from "utils/cookie";
 const tokenKey = process.env.VUE_APP_TOKEN;
 
 const updateUserInfo = (commit, data) => {
@@ -48,10 +48,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       logout()
         .then(result => {
-          dispatch("resetUserInfo").then(() => {
-            location.href = "/";
-          });
-          resetRouter();
+          dispatch("resetUserInfo");
           resolve(result);
         })
         .catch(error => {
@@ -64,6 +61,7 @@ const actions = {
     return new Promise(resolve => {
       commit("batchUpdateState", { token: "", user: "" });
       removeCookie(tokenKey); // token
+      router.push("/");
       resolve();
     });
   }

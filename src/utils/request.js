@@ -49,9 +49,7 @@ service.interceptors.response.use(
       Vue.prototype.$toast.error(res.message || "Error");
       // 403: forbidden login; 401: Token expired;
       if (res.code === 401 || res.code === 403) {
-        store.dispatch("user/resetUserInfo").then(() => {
-          location.reload();
-        });
+        store.dispatch("user/resetUserInfo");
       }
       return Promise.reject(new Error(res.message || "Error"));
     } else {

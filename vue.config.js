@@ -31,7 +31,6 @@ module.exports = {
     name: name,
     resolve: {
       alias: {
-        src: resolve("src"),
         layout: resolve("src/layout"),
         views: resolve("src/views"),
         utils: resolve("src/utils"),
