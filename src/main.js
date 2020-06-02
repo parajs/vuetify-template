@@ -1,13 +1,15 @@
+import "@/icons"; // icon
+import "@/styles/scrollbar.scss";
+import "utils/eventBus";
 import Vue from "vue";
+import VuetifyToast from "vuetify-toast-snackbar";
 import App from "./App.vue";
-import "./registerServiceWorker";
+import * as filters from "./filters"; // global filters
+import "./permission"; // permission control
+import vuetify from "./plugins/vuetify";
+// import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
-import vuetify from "./plugins/vuetify";
-import VuetifyToast from "vuetify-toast-snackbar";
-import "./permission"; // permission control
-import * as filters from "./filters"; // global filters
-import "@/styles/scrollbar.scss";
 
 Vue.use(VuetifyToast, {
   x: "center",
