@@ -10,8 +10,9 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
-  "author": "chenzhen <546369005@qq.com>",
+  "author": "chenguzhen87 <546369005@qq.com>",
   "keywords": [
+    "vuetify-template",
     "vue",
     "vuetify",
     "vue-router",
